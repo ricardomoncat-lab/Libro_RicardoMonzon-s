@@ -1,0 +1,59 @@
+Capítulo 1:
+  Introducció a Git:
+  
+    En aquest apartat introduirem el sistema de control de versions distribuït Git, un dels sistemes més utilitzats actualment i amb el qual treballa la majoria de repositoris públics de programari, com Github, Gitlab o Bitbucket, entre d'altres.
+    
+    Git va ser desenvolupat amb la finalitat de donar suport al desenvolupament distribuït del kernel de Linux, i té com a principals característiques:
+    
+      És ràpid i escalable, ja que s'adapta tant a projectes individuals com a grans projectes amb un gran nombre de desenvolupadors.
+      
+      Utilitza una còpia completa amb tot l'historial de desenvolupament en cada usuari local. Si el servidor principal deixa d'estar operatiu, es pot recuperar a partir de qualsevol còpia local. A més, ens permet tornar a un estat previ del projecte (el que hem vingut anomenant instantànies o commits) o veure les diferències entre dos estats sense necessitat d'equips externs.
+      
+      Facilita el desenvolupament distribuït, ja que, al disposar d'una còpia completa del repositori, es facilita el desenvolupament simultani i independent, evitant una sincronització contínua.
+      
+      Permet treballar localment com fèiem amb RCS, sense necessitat de connexió a altres xarxes, ja que els commits es fan de forma local, i les connexions a l'exterior es realitzaran quan vulguem col·laborar amb altres usuaris o bé obtenir els canvis des de l'última connexió.
+      
+      Permet treballar amb branques i fusionar-les fàcilment, aconseguint així un desenvolupament no lineal.
+      
+      En lloc de treballar amb llistes de canvis amb les modificacions, Git utilitza instantànies del sistema de fitxers en cada commit.
+      
+      Admet la connexió al servidor mitjançant múltiples protocols: HTTP, HTTPS, SSH, a més del protocol propi.
+     
+      Es tracta d'un sistema robust que utilitza internament un algorisme de xifrat SHA-1, amb el qual pot detectar qualsevol modificació accidental o malintencionada del repositori.
+     
+      És programari lliure, seguint la filosofia de la majoria de projectes col·laboratius, i es distribueix sota la llicència GNU/GPL 2.0.
+    
+      Com hem comentat, Git és un sistema de control de versions distribuït que ens permet treballar en un projecte junt amb diversos desenvolupadors. Això no significa que no puguem treballar de forma local. Als següents apartats començarem a utilitzar Git treballant localment per a passar posteriorment a fer-ho de forma distribuïda. Veurem en primer lloc els conceptes més importants relacionats amb Git, així com el flux habitual de treball.
+
+Capítulo 2:
+  Flux de treball:
+  
+    El flux de treball, una vegada tinguem inicialitzat un repositori, consistirà a anar afegint els fitxers que desitgem al control de versions, modificar-los i preparar els successius commits o confirmacions per incorporar aquests canvis en la base de dades.
+
+    Creem els fitxers necessaris en la carpeta del projecte. Aquests fitxers estaran inicialment sense seguiment (untracked) per part del sistema de control de versions. Podem crear-los, editar-los o esborrar-los. Fins que no s'afegeixen al control de versions, romandran en aquest estat.
+    Afegim els fitxers al control de versions (git add). En aquest moment, els fitxers estaran sota seguiment (tracked) i, a més, preparats per al següent commit. Des d'aquest estat de preparat poden succeir dues coses: a.Confirmem els canvis mitjançant un commit, en el qual cas les modificacions realitzades per a aquesta confirmació s'afegeixen al repositori. A més, el fitxer ara passarà a estar confirmat o sense modificacions. b.D'altra banda, podríem modificar el fitxer que acabem de crear. En aquest cas, el fitxer passaria a estat modificat i, perquè aquestes modificacions tinguen efecte, hem de preparar el fitxer afegint les modificacions per al següent commit (git add). En cas que no afegim aquests canvis, en el següent commit s'afegirà al repositori la versió sense modificar del fitxer.
+
+    Tornem al punt anterior, on afegim noves modificacions i preparem noves confirmacions.
+
+  En tot aquest flux de treball, per a cada commit que fem es generaran noves signatures SHA que apuntaran a la signatura SHA del commit anterior. El HEAD sempre apuntarà a l'últim commit vàlid.
+
+Capítulo 3:
+  Repositoris remots:
+    Per ara hem vist com crear i gestionar repositoris amb Git, així com treballar amb diferents branques, sempre de forma local. Quan treballem en un equip deslocalitzat, necessitem compartir aquest treball local. És ací on entra en acció l'arquitectura distribuïda de Git.
+
+    Com ja sabem, Git és un SCV distribuït. Això significa que el repositori complet pot estar ubicat en diferents ordinadors, en lloc de centralitzar-se en un únic servidor. No obstant això, això no significa que no es requerisca d'un servidor que s'encarregue de mantenir el que seria el repositori principal.
+
+    Directoris de treball i repositoris de tipus bare:
+      En els exemples pràctics anteriors hem utilitzat l'ordre git init per inicialitzar un directori com a directori de treball en el qual poder realitzar un control de versions de forma local. En aquest directori de treball, Git genera en la pròpia arrel el directori ocult .git, dins del qual s'ubica tota la informació necessària per al control de versions de forma local.
+
+      Quan diversos desenvolupadors necessiten compartir el seu treball, ho faran a través d'un repositori de tipus bare, la traducció del qual podria ser repositori descobert, buit o net, i que s'ubicarà en un servidor centralitzat. Els equips de treball, utilitzaran una còpia d'aquest repositori per treballar de forma local, i sincronitzaran el seu treball amb el repositori central.
+
+    Aquesta segueix sent una arquitectura distribuïda, ja que el repositori es troba en els diferents equips de treball, en forma de repositori local, però a més, existeix un servidor que emmagatzema el repositori descobert. Aquest repositori no tindrà directori de treball, de manera que el seu contingut tindrà la mateixa estructura que el contingut del directori .git dels repositoris locals.
+
+    El flux de treball en aquests casos serà el següent:
+
+      Creació del repositori de tipus bare en el servidor. (git init --bare)
+      Clonació del repositori en cada equip de treball. (git clone adreça_del_repositori)
+      Treball en la còpia local del repositori i el directori de treball. Aci s'afegeixen o eliminen recursos (add/rm), es confirmen en el repositori local (commit), etcètera.
+      Sincronització entre el repositori local i el del servidor. Quan s'envien dades al servidor es realitza una operació de PUSH (git push), i quan desitgem obtenir dades del servidor s'utilitza FETCH (git fetch) i PULL (git pull).
+    
