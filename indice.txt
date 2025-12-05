@@ -63,4 +63,3 @@ Capítulo 4:
       Clonació del repositori en cada equip de treball. (git clone adreça_del_repositori)
       Treball en la còpia local del repositori i el directori de treball. Aci s'afegeixen o eliminen recursos (add/rm), es confirmen en el repositori local (commit), etcètera.
       Sincronització entre el repositori local i el del servidor. Quan s'envien dades al servidor es realitza una operació de PUSH (git push), i quan desitgem obtenir dades del servidor s'utilitza FETCH (git fetch) i PULL (git pull).
-    
