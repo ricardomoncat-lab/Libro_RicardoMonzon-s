@@ -38,6 +38,13 @@ Capítulo 2:
   En tot aquest flux de treball, per a cada commit que fem es generaran noves signatures SHA que apuntaran a la signatura SHA del commit anterior. El HEAD sempre apuntarà a l'últim commit vàlid.
 
 Capítulo 3:
+  Branques
+    Quan hem de fer canvis al nostre codi que no siguen immediats, ja siga perquè volem corregir     errors, o per afegir codi nou que pot ser inestable, el més pràctic és utilitzar branques.       Recordem que una branca és una bifurcació del codi principal que ens permet seguir un camí       de desenvolupament diferent, i bé descartar els canvis realitzats o fusionar-los amb la          branca principal.
+
+    Tot i que pràcticament tots els sistemes de control de versions ofereixen mecanismes per         treballar amb branques, la manera com Git les gestiona fa que sobreisca sobre la resta, sent     extremadament ràpid i senzill realitzar el canvi.
+
+
+Capítulo 4:
   Repositoris remots:
     Per ara hem vist com crear i gestionar repositoris amb Git, així com treballar amb diferents branques, sempre de forma local. Quan treballem en un equip deslocalitzat, necessitem compartir aquest treball local. És ací on entra en acció l'arquitectura distribuïda de Git.
 
